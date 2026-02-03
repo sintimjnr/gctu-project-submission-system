@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h4 class="mb-4">Submission Deadline</h4>
+
+<form method="POST" class="card p-4 shadow-sm" style="max-width:500px;">
+    <label class="form-label">Set deadline</label>
+
+    <input type="datetime-local"
+           name="deadline"
+           class="form-control mb-3"
+           value="{{ deadline.deadline.strftime('%Y-%m-%dT%H:%M') }}">
+
+    <button class="btn btn-primary">
+        Update Deadline
+    </button>
+</form>
+
+{% endblock %}

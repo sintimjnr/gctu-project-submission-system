@@ -1,0 +1,335 @@
+/* ==============================
+   GCTU OFFICIAL THEME (CLEAN)
+============================== */
+
+body {
+    background-color: #f4f6f9;
+    font-family: "Segoe UI", sans-serif;
+    color: #1f2937;
+}
+
+/* ==============================
+   NAVBAR
+============================== */
+.navbar {
+    background-color: #ffffff !important;
+    border-bottom: 4px solid #003A8F;
+}
+
+.navbar-brand {
+    color: #003A8F !important;
+    font-weight: 700;
+}
+
+.navbar-nav .nav-link {
+    color: #003A8F;
+    font-weight: 600;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #F5B301 !important;
+}
+
+/* ==============================
+   BUTTONS
+============================== */
+.btn-gctu {
+    background-color: #003A8F;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+}
+
+.btn-gctu:hover {
+    background-color: #002c6d;
+}
+
+.btn-gctu-outline {
+    background: #ffffff;
+    color: #003A8F;
+    border: 1px solid #003A8F;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.btn-gctu-outline:hover {
+    background-color: #003A8F;
+    color: #ffffff;
+}
+
+.btn-gctu-danger {
+    background: #c62828;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    border: none;
+}
+
+.btn-gctu-danger:hover {
+    background-color: #a61b1b;
+}
+
+/* ==============================
+   CARDS
+============================== */
+.card {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ==============================
+   TABLES (MODERN)
+============================== */
+.table {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: #f1f5f9;
+    color: #003A8F;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-bottom: 2px solid #003A8F;
+    text-transform: uppercase;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    font-size: 0.9rem;
+}
+
+.table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+/* ===============================
+   STATUS BADGES – STRONG COLORS
+================================ */
+
+.badge {
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+/* APPROVED */
+.badge-approved {
+  background-color: #166534;   /* Dark green */
+  color: #ffffff;
+}
+
+/* PENDING */
+.badge-pending {
+  background-color: #b45309;   /* Deep gold / amber */
+  color: #ffffff;
+}
+
+/* REJECTED */
+.badge-rejected {
+  background-color: #991b1b;   /* Deep red */
+  color: #ffffff;
+}
+
+
+/* ==============================
+   SIDEBAR
+============================== */
+.sidebar {
+    background-color: #ffffff;
+    min-height: 100vh;
+    border-right: 1px solid #e5e7eb;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #003A8F;
+    font-weight: 600;
+    border-radius: 6px;
+    margin: 4px 10px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: #003A8F;
+    color: #ffffff;
+}
+
+/* ==============================
+   HEADINGS
+============================== */
+h1, h2, h3, h4, h5 {
+    color: #003A8F;
+    font-weight: 700;
+}
+
+
+/* ===============================
+   MODERN ADMIN DASHBOARD CARDS
+================================ */
+
+.dashboard-card {
+  border-radius: 16px;
+  padding: 10px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transition: all 0.25s ease;
+  border-left: 6px solid transparent;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+.dashboard-card h6 {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.dashboard-card h3 {
+  font-weight: 800;
+  color: #0b3c8a;
+}
+
+/* Icon */
+.card-icon {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+/* GCTU COLOR VARIANTS */
+.card-students {
+  border-left-color: #0b3c8a; /* GCTU Blue */
+}
+
+.card-projects {
+  border-left-color: #475569;
+}
+
+.card-approved {
+  border-left-color: #166534;
+}
+
+.card-pending {
+  border-left-color: #b45309;
+}
+
+/* ===============================
+   MODERN GCTU SIDEBAR
+================================ */
+
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.04);
+}
+
+.sidebar-header h5 {
+  color: #0b3c8a;
+}
+
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  margin-bottom: 6px;
+  text-decoration: none;
+  color: #0b3c8a;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.sidebar-menu a:hover {
+  background-color: #f1f5f9;
+}
+
+.sidebar-menu a.active {
+  background-color: #0b3c8a;
+  color: #ffffff;
+}
+
+.sidebar-menu a.logout {
+  color: #dc2626;
+}
+
+.sidebar-menu a.logout:hover {
+  background-color: #fee2e2;
+}
+
+/* Sidebar buttons */
+.sidebar .btn {
+  font-size: 0.85rem;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* ===============================
+   MODERN ADMIN SIDEBAR – GCTU
+================================ */
+
+.sidebar {
+    width: 240px;
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    min-height: 100vh;
+}
+
+.sidebar-header h5 {
+    color: #003A8F;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    color: #003A8F;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sidebar-menu a:hover {
+    background-color: #003A8F;
+    color: #ffffff;
+}
+
+.sidebar-menu a.active {
+    background-color: #003A8F;
+    color: #ffffff;
+}
+
+.sidebar-menu .icon {
+    font-size: 1.1rem;
+}
+
+.sidebar-menu .logout {
+    margin-top: 20px;
+    color: #c62828;
+}
+
+.sidebar-menu .logout:hover {
+    background-color: #fee2e2;
+    color: #991b1b;
+}

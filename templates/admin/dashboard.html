@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- ======================
+   DASHBOARD SUMMARY CARDS
+====================== -->
+<div class="row g-4 mb-4">
+
+    <!-- Total Students -->
+    <div class="col-md-3 col-sm-6">
+        <div class="dashboard-card card-students">
+            <div class="card-body">
+                <div class="card-icon"></div>
+                <h6>Total Students</h6>
+                <h3>{{ total_students }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Projects -->
+    <div class="col-md-3 col-sm-6">
+        <div class="dashboard-card card-projects">
+            <div class="card-body">
+                <div class="card-icon"></div>
+                <h6>Total Projects</h6>
+                <h3>{{ total_projects }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Approved -->
+    <div class="col-md-3 col-sm-6">
+        <div class="dashboard-card card-approved">
+            <div class="card-body">
+                <div class="card-icon"></div>
+                <h6>Approved</h6>
+                <h3>{{ approved_projects }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending -->
+    <div class="col-md-3 col-sm-6">
+        <div class="dashboard-card card-pending">
+            <div class="card-body">
+                <div class="card-icon"></div>
+                <h6>Pending</h6>
+                <h3>{{ pending_projects }}</h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ======================
+   PROJECTS TABLE
+====================== -->
+<table class="table table-hover bg-white shadow-sm">
+    <thead class="table-light">
+        <tr>
+            <th>Student</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for project in projects %}
+        <tr>
+            <td>{{ project.student.name }}</td>
+            <td>{{ project.title }}</td>
+
+            <td>
+                <span class="badge
+                    {% if project.status == 'approved' %} badge-approved
+                    {% elif project.status == 'rejected' %} badge-rejected
+                    {% else %} badge-pending
+                    {% endif %}
+                ">
+                    {{ project.status }}
+                </span>
+            </td>
+
+            <td>{{ project.created_at.strftime("%Y-%m-%d") }}</td>
+
+            <td>
+                <a href="{{ url_for('view_project', project_id=project.id) }}"
+                   class="btn btn-gctu-outline btn-sm">
+                    Review
+                </a>
+
+                <a href="{{ url_for('admin_reset_password', user_id=project.student.id) }}"
+                   class="btn btn-gctu-danger btn-sm"
+                   onclick="return confirm('Reset password?')">
+                    Reset
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

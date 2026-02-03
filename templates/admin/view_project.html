@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h4 class="mb-4">Project Review</h4>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>Student Details</h5>
+
+        <p><strong>Name:</strong> {{ project.student.name }}</p>
+        <p><strong>Email:</strong> {{ project.student.email }}</p>
+        <p><strong>Programme:</strong> {{ project.student.programme }}</p>
+        <p><strong>Department:</strong> {{ project.student.department }}</p>
+        <p><strong>Level:</strong> {{ project.student.level }}</p>
+        <p><strong>Session:</strong> {{ project.student.session_type }}</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5>Project Details</h5>
+
+        <p><strong>Title:</strong> {{ project.title }}</p>
+        <p><strong>Description:</strong></p>
+        <p>{{ project.description }}</p>
+
+        {% if project.file %}
+            <a href="{{ url_for('static', filename='uploads/' + project.file) }}"
+               class="btn btn-sm btn-primary" target="_blank">
+                📄 Download File
+            </a>
+        {% endif %}
+
+        <hr>
+
+        <form method="POST">
+            <div class="mb-3">
+                <label>Feedback</label>
+                <textarea name="feedback" class="form-control" rows="3"></textarea>
+            </div>
+
+            <button name="action" value="approved" class="btn btn-success">
+                ✅ Approve
+            </button>
+
+            <button name="action" value="rejected" class="btn btn-danger">
+                ❌ Reject
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

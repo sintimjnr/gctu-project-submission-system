@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h4 class="mb-3">Welcome, {{ session.name }}</h4>
+
+    <a href="{{ url_for('create_project') }}"
+       class="btn btn-success mb-4">
+        + Submit New Project
+    </a>
+
+    {% if projects %}
+        <table class="table table-bordered shadow-sm bg-white">
+            <thead class="table-dark">
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Feedback</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for project in projects %}
+                <tr>
+                    <td>{{ project.title }}</td>
+
+                    <td>
+                        {% if project.status == "approved" %}
+                            <span class="badge bg-success">Approved</span>
+                        {% elif project.status == "rejected" %}
+                            <span class="badge bg-danger">Rejected</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ project.feedback or "—" }}
+                    </td>
+
+                    <td>
+                        {% if project.status == "rejected" %}
+                            <a href="{{ url_for('edit_project', project_id=project.id) }}"
+                               class="btn btn-sm btn-primary">
+                                Edit & Resubmit
+                            </a>
+                        {% endif %}
+
+                        <a href="{{ url_for('delete_project', project_id=project.id) }}"
+                           class="btn btn-sm btn-danger"
+                           onclick="return confirm('Delete this project?')">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <p class="text-muted">No projects submitted yet.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

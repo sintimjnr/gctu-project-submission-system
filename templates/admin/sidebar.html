@@ -1,0 +1,52 @@
+<div class="sidebar p-3">
+
+    <!-- Header -->
+    <div class="sidebar-header mb-4">
+        <h5 class="fw-bold mb-0">Admin Panel</h5>
+        <small class="text-muted">GCTU Project System</small>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar-menu">
+
+        <a href="{{ url_for('admin_dashboard') }}"
+           class="{% if page == 'dashboard' %}active{% endif %}">
+            <span class="icon">📊</span>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="{{ url_for('admin_students') }}"
+           class="{% if page == 'students' %}active{% endif %}">
+            <span class="icon">👨‍🎓</span>
+            <span>Students</span>
+        </a>
+
+        <a href="{{ url_for('admin_deadline') }}"
+           class="{% if page == 'deadline' %}active{% endif %}">
+            <span class="icon">⏰</span>
+            <span>Submission Deadline</span>
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="logout">
+            <span class="icon">🚪</span>
+            <span>Logout</span>
+        </a>
+
+    </nav>
+
+    <!-- Contextual PDF action (ONE PER PAGE ONLY) -->
+    {% if page == "dashboard" %}
+        <a href="{{ url_for('download_projects_pdf') }}"
+           class="btn btn-gctu w-100 mt-4">
+            📥 Download Projects PDF
+        </a>
+    {% endif %}
+
+    {% if page == "students" %}
+        <a href="{{ url_for('download_students_pdf') }}"
+           class="btn btn-gctu-danger w-100 mt-4">
+            📥 Download Students PDF
+        </a>
+    {% endif %}
+
+</div>

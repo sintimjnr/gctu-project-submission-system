@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-3">
+        {% include "admin/sidebar.html" %}
+    </div>
+
+    <div class="col-md-9">
+        <h4>Student Profile</h4>
+
+        <div class="card p-3 mb-3">
+            <p><b>Name:</b> {{ student.name }}</p>
+            <p><b>Email:</b> {{ student.email }}</p>
+            <p><b>Programme:</b> {{ student.programme }}</p>
+            <p><b>Department:</b> {{ student.department }}</p>
+            <p><b>Level:</b> {{ student.level }}</p>
+            <p><b>Session:</b> {{ student.session_type }}</p>
+        </div>
+
+        <h5>Submitted Projects</h5>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+
+            {% for p in projects %}
+            <tr>
+                <td>{{ p.title }}</td>
+                <td>{{ p.status }}</td>
+                <td>{{ p.created_at.strftime('%Y-%m-%d') }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

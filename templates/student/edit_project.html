@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h4>Edit & Resubmit Project</h4>
+
+<form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label>Title</label>
+        <input type="text" name="title" class="form-control"
+               value="{{ project[1] }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Description</label>
+        <textarea name="description" class="form-control" required>{{ project[2] }}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Upload New File (optional)</label>
+        <input type="file" name="file" class="form-control">
+        <small class="text-muted">
+            Leave empty to keep existing file
+        </small>
+    </div>
+
+    <button class="btn btn-primary">Resubmit Project</button>
+    <a href="{{ url_for('student_dashboard') }}" class="btn btn-secondary">Cancel</a>
+</form>
+
+{% endblock %}
