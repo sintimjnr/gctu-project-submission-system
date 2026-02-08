@@ -106,179 +106,156 @@ with app.app_context():
 
     
 
+# ==================================================
+# CLEAN PROFESSIONAL PDF REPORT ENGINE (RENDER SAFE)
+# ==================================================
+
 def draw_gctu_cover_page(c, subtitle):
+    """
+    Draws the GCTU logo + title on the SAME first page
+    and returns where table content should start.
+    """
     width, height = A4
 
-    # ✅ ABSOLUTE logo path (this is the fix)
-    logo_path = os.path.join(
-        BASE_DIR, "static", "images", "gctu_logo.png"
-    )
+    # ✅ Render-safe absolute logo path
+    logo_path = os.path.join(app.root_path, "static", "images", "gctu_logo.png")
 
-    # ✅ Only draw if file truly exists
-    if os.path.exists(logo_path):
-        c.drawImage(
-    logo_path,
-    width / 2 - 4*cm,
-    height - 5.5*cm,
-    width=8*cm,
-    height=8*cm,
-    preserveAspectRatio=True,
-    mask="auto"
-)
-
-
-    c.setFont("Helvetica-Bold", 18)
-    c.drawCentredString(
-        width / 2,
-        height - 8.2*cm,
-        "GHANA COMMUNICATION TECHNOLOGY UNIVERSITY"
-    )
-
-    c.setFont("Helvetica-Bold", 14)
-    c.drawCentredString(
-        width / 2,
-        height - 9.7*cm,
-        "PROJECT SUBMISSION SYSTEM"
-    )
-
-    c.setFont("Helvetica", 12)
-    c.drawCentredString(
-        width / 2,
-        height - 11.2*cm,
-        subtitle
-    )
-
-    c.setFont("Helvetica", 10)
-    c.drawCentredString(
-        width / 2,
-        2.5*cm,
-        f"Generated on {datetime.now().strftime('%d %B %Y, %I:%M %p')}"
-    )
-
-    return height - 13*cm
-
-
-
-    
-    
-   
-   
-def draw_page_header(c, title):
-    width, height = A4
-
-    logo_path = os.path.join(BASE_DIR, "static", "images", "gctu_logo.png")
+    # Draw logo if exists
     if os.path.exists(logo_path):
         c.drawImage(
             logo_path,
-            2*cm,
-            height - 3.5*cm,
-            width=2.5*cm,
+            width / 2 - 4 * cm,
+            height - 5.5 * cm,
+            width=8 * cm,
             preserveAspectRatio=True,
             mask="auto"
         )
 
+    # University name
+    c.setFont("Helvetica-Bold", 18)
+    c.drawCentredString(
+        width / 2,
+        height - 8.5 * cm,
+        "GHANA COMMUNICATION TECHNOLOGY UNIVERSITY"
+    )
+
+    # System name
     c.setFont("Helvetica-Bold", 14)
     c.drawCentredString(
         width / 2,
-        height - 2.2*cm,
-        title
+        height - 10 * cm,
+        "PROJECT SUBMISSION SYSTEM"
     )
 
-    c.line(2*cm, height - 2.8*cm, width - 2*cm, height - 2.8*cm)
+    # Report subtitle
+    c.setFont("Helvetica", 12)
+    c.drawCentredString(width / 2, height - 11.5 * cm, subtitle)
 
-    
+    # Generated date
+    c.setFont("Helvetica", 10)
+    c.drawCentredString(
+        width / 2,
+        2.5 * cm,
+        f"Generated on {datetime.now().strftime('%d %B %Y, %I:%M %p')}"
+    )
+
+    # ✅ Return starting Y for table content
+    return height - 13 * cm
+
+
+# ==================================================
+# REGISTERED STUDENTS PDF
+# ==================================================
 
 def generate_students_report_pdf(filename="students_report.pdf"):
     file_path = os.path.join(BASE_DIR, filename)
     c = canvas.Canvas(file_path, pagesize=A4)
     width, height = A4
 
-    # Cover page
-    y = draw_gctu_cover_page(c, "REGISTERED STUDENTS REPORT")
-
     students = User.query.filter_by(role="student").all()
     total_students = len(students)
 
+    # Draw first-page header
+    y = draw_gctu_cover_page(c, "REGISTERED STUDENTS REPORT")
 
-    draw_page_header(c, "REGISTERED STUDENTS")
-    row_height = 0.7*cm
+    row_height = 0.7 * cm
 
     # Table header
     c.setFont("Helvetica-Bold", 10)
-    c.drawString(2*cm, y, "NAME")
-    c.drawString(8*cm, y, "PROGRAMME")
-    c.drawString(14*cm, y, "LEVEL")
+    c.drawString(2 * cm, y, "NAME")
+    c.drawString(8 * cm, y, "PROGRAMME")
+    c.drawString(14 * cm, y, "LEVEL")
 
     y -= row_height
     c.setFont("Helvetica", 10)
 
+    # Table rows
     for s in students:
-        c.drawString(2*cm, y, s.name)
-        c.drawString(8*cm, y, s.programme or "-")
-        c.drawString(14*cm, y, s.level or "-")
+        c.drawString(2 * cm, y, s.name)
+        c.drawString(8 * cm, y, s.programme or "-")
+        c.drawString(14 * cm, y, s.level or "-")
 
         y -= row_height
 
-        if y < 2.5*cm:
+        # New page if space finished
+        if y < 2.5 * cm:
             c.showPage()
-            draw_page_header(c, "REGISTERED STUDENTS")
-            y = height - 4.5*cm
-        c.setFont("Helvetica", 10)
-        c.drawString(
-           2*cm,
-           height - 2.8*cm,
-           f"Total Registered Students: {total_students}"
-)
-    
+            y = draw_gctu_cover_page(c, "REGISTERED STUDENTS REPORT")
+
+    # Total count at bottom
+    c.setFont("Helvetica-Bold", 10)
+    c.drawString(2 * cm, 2 * cm, f"Total Registered Students: {total_students}")
 
     c.save()
     return file_path
 
 
-
-
-    
-    
-
-
+# ==================================================
+# SUBMITTED PROJECTS PDF
+# ==================================================
 
 def generate_projects_report_pdf(filename="projects_report.pdf"):
     file_path = os.path.join(BASE_DIR, filename)
     c = canvas.Canvas(file_path, pagesize=A4)
     width, height = A4
 
-    # Cover page
-    draw_gctu_cover_page(c, "SUBMITTED PROJECTS REPORT")
-
     projects = Project.query.all()
+    total_projects = len(projects)
 
-    draw_page_header(c, "SUBMITTED PROJECTS")
-    y = height - 4.5*cm
-    row_height = 0.7*cm
+    # Draw first-page header
+    y = draw_gctu_cover_page(c, "SUBMITTED PROJECTS REPORT")
+
+    row_height = 0.7 * cm
 
     # Table header
     c.setFont("Helvetica-Bold", 10)
-    c.drawString(2*cm, y, "STUDENT")
-    c.drawString(7*cm, y, "PROJECT TITLE")
-    c.drawString(14*cm, y, "STATUS")
+    c.drawString(2 * cm, y, "STUDENT")
+    c.drawString(7 * cm, y, "PROJECT TITLE")
+    c.drawString(14 * cm, y, "STATUS")
 
     y -= row_height
     c.setFont("Helvetica", 10)
 
+    # Table rows
     for p in projects:
-        c.drawString(2*cm, y, p.student.name)
-        c.drawString(7*cm, y, p.title[:45])  # prevent overflow
-        c.drawString(14*cm, y, p.status)
+        c.drawString(2 * cm, y, p.student.name)
+        c.drawString(7 * cm, y, p.title[:40])  # prevent overflow
+        c.drawString(14 * cm, y, p.status)
 
         y -= row_height
 
-        if y < 2.5*cm:
+        # New page handling
+        if y < 2.5 * cm:
             c.showPage()
-            draw_page_header(c, "SUBMITTED PROJECTS")
-            y = height - 4.5*cm
+            y = draw_gctu_cover_page(c, "SUBMITTED PROJECTS REPORT")
+
+    # Total count
+    c.setFont("Helvetica-Bold", 10)
+    c.drawString(2 * cm, 2 * cm, f"Total Submitted Projects: {total_projects}")
 
     c.save()
     return file_path
+
 
 
 
